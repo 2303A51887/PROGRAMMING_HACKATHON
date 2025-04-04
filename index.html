@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty Portal Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar {
+      display: flex;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent navbar */
+      padding: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .a1 {
+      display: flex;
+    }
+
+    .a1 a {
+      color: rgba(255, 255, 255, 0.8); /* Light transparent text */
+      padding: 12px 14px;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .a1 a:hover {
+      background-color: rgba(255, 255, 255, 0.3); /* Subtle hover effect */
+      color: black;
+    }
+
+    .main {
+      background-image: url("https://media.licdn.com/dms/image/v2/C4D1BAQFVFsYZj_A0EQ/company-background_10000/company-background_10000/0/1594886917753/sr_university_cover?e=2147483647&v=beta&t=-JnHqMlIZgqEXRYurOlCYpL1p7KOw1l1uYdsAkU8dx0");
+      background-size: cover;
+      background-position: center;
+      height: calc(100vh - 60px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.2); /* Slightly lighter */
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      width: 450px;
+      text-align: center;
+      backdrop-filter: blur(10px); /* More refined frosted glass */
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Better readability */
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2); /* Transparent input */
+      color: white;
+    }
+
+    .login-container input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: rgba(255, 255, 255, 0.2); /* Transparent button */
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .login-container button:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      max-width: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div>
+      <img src="https://sru.edu.in/logos/SRU_Main_Logo_Colour.png" height="40px" alt="SRU Logo"/>
+    </div>
+    <div class="a1">
+      <a href="#" onclick="changeLoginTitle('Faculty Portal Login')">Faculty Login</a>
+      <a href="#" onclick="changeLoginTitle('Admin Portal Login')">Admin Login</a>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main">
+    <div class="login-container">
+      <div class="logo">
+        <img src="https://sru.edu.in/logos/SRU_Main_Logo_Colour.png" alt="University Logo">
+      </div>
+      <h2 id="login-title">Faculty Portal Login</h2>
+      <form onsubmit="login(event)">
+        <input type="text" id="userId" placeholder="User ID" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    function changeLoginTitle(title) {
+      document.getElementById("login-title").textContent = title;
+    }
+  
+    function login(event) {
+      event.preventDefault(); // Prevent form reload
+      // Add validation or login logic here (e.g., fetch API or check credentials)
+      
+      // Dummy redirect for now:
+      window.location.href = "dashboard.html";
+    }
+  </script>
+  
+</body>
+</html>

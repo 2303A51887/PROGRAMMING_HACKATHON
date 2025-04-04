@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard - SR University</title>
+    <style>
+        :root {
+            --primary: #1e88e5;
+            --secondary: #303f9f;
+            --success: #43a047;
+            --warning: #ffa000;
+            --danger: #e53935;
+            --info: #00acc1;
+            --light: #f5f5f5;
+            --dark: #263238;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), #512da8);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 1rem;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .user-info span {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-info a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+        
+        .user-info a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        nav {
+            background-color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0 2rem;
+        }
+        
+        nav li {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav li:hover {
+            color: var(--secondary);
+        }
+        
+        nav li:first-child {
+            color: var(--secondary);
+        }
+        
+        nav li:first-child::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .faculty-info {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .faculty-info img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary);
+        }
+        
+        .faculty-info h2 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .faculty-info p {
+            color: #555;
+            margin-bottom: 0.25rem;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+        }
+        
+        .card.purple {
+            background-color: var(--secondary);
+        }
+        
+        .card.blue {
+            background-color: var(--primary);
+        }
+        
+        .card.green {
+            background-color: var(--success);
+        }
+        
+        .card.yellow {
+            background-color: var(--warning);
+        }
+        
+        .card.red {
+            background-color: var(--danger);
+        }
+        
+        .card.teal {
+            background-color: var(--info);
+        }
+        
+        .classes, .schedule, .students {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #512da8;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--success);
+        }
+        
+        .action-btn {
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .tag.active {
+            background-color: #e8f5e9;
+            color: var(--success);
+        }
+        
+        .tag.upcoming {
+            background-color: #e3f2fd;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .user-info {
+                align-items: center;
+                margin-top: 1rem;
+            }
+            
+            nav ul {
+                overflow-x: auto;
+                padding: 0 1rem;
+            }
+            
+            .faculty-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            main {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://sru.edu.in/logos/SRU_Main_Logo_Colour.png" alt="SR University Logo">
+        </div>
+        <div class="title">Faculty Portal - Academics & Administration</div>
+        <div class="user-info">
+            <span>Welcome, DR. BALAJEE MARAM</span>
+            <div>
+                <a href="#">Change Password</a>
+                <a href="index.html">Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+          <a href="dashboard.html" style="text-decoration: none;"><li>Dashboard</li></a>
+            <li>Classes</li>
+            <li>Attendance</li>
+            <li>Assignments</li>
+            <li>Marks</li>
+           <a href="https://timetable.sruniv.com/batchReport" style="text-decoration: none;"> <li>Schedule</li></a>
+           <a href="#" style="text-decoration: none;">  <li>Students</li></a>
+        </ul>
+    </nav>
+        
+        <section class="students">
+            <h3>
+                My Mentees
+                <button class="btn">View All</button>
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                        <th>Attendance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2303A51885</td>
+                        <td>BEJJALA SRIKAR</td>
+                        <td>23CSBTB02</td>
+                        <td>92.31%</td>
+                        <td>
+                            <button class="action-btn">Profile</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2303A51752</td>
+                        <td>ADITHYA KUMAR</td>
+                        <td>23CSBTB02</td>
+                        <td>88.50%</td>
+                        <td>
+                            <button class="action-btn">Profile</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2303A51924</td>
+                        <td>PRIYA SHARMA</td>
+                        <td>23CSBTB02</td>
+                        <td>95.20%</td>
+                        <td>
+                            <button class="action-btn">Profile</button>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td>2303A51883</td>
+                      <td>HARI</td>
+                      <td>23CSBTB02</td>
+                      <td>92.31%</td>
+                      <td>
+                          <button class="action-btn">Profile</button>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td>2303A51889</td>
+                    <td>RAVI</td>
+                    <td>23CSBTB02</td>
+                    <td>96.31%</td>
+                    <td>
+                        <button class="action-btn">Profile</button>
+                    </td>
+                </tr>
+                <tr>
+                  <td>2303A51881</td>
+                  <td>RAJU</td>
+                  <td>23CSBTB02</td>
+                  <td>99.31%</td>
+                  <td>
+                      <button class="action-btn">Profile</button>
+                  </td>
+              </tr>
+              <tr>
+                <td>2303A51005</td>
+                <td>SUDHEER</td>
+                <td>23CSBTB02</td>
+                <td>91.31%</td>
+                <td>
+                    <button class="action-btn">Profile</button>
+                </td>
+            </tr>
+            <tr>
+              <td>2303A51335</td>
+              <td>ABHILASH</td>
+              <td>23CSBTB02</td>
+              <td>99.31%</td>
+              <td>
+                  <button class="action-btn">Profile</button>
+              </td>
+          </tr>
+          <tr>
+            <td>2303A51000</td>
+            <td>LALITH</td>
+            <td>23CSBTB02</td>
+            <td>72.31%</td>
+            <td>
+                <button class="action-btn">Profile</button>
+            </td>
+        </tr>
+        <tr>
+          <td>2303A51887</td>
+          <td>PRASHANTH</td>
+          <td>23CSBTB02</td>
+          <td>75.01%</td>
+          <td>
+              <button class="action-btn">Profile</button>
+          </td>
+      </tr>
+      <tr>
+        <td>2303A51884</td>
+        <td>VYSHNAVI</td>
+        <td>23CSBTB02</td>
+        <td>70.31%</td>
+        <td>
+            <button class="action-btn">Profile</button>
+        </td>
+    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+  
+</body>
+</html>
